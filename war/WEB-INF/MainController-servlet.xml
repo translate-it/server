@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver" lazy-init="true" />
+
+	<!-- View Resolvers -->
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true" >
+	  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	</bean>	
+	
+
+	<!-- Repositories -->	
+	<bean id="userRepository" class="com.amadeus.ori.translate.repository.impl.UserRepositoryImpl" lazy-init="true" />
+	<bean id="projectRepository" class="com.amadeus.ori.translate.repository.impl.ProjectRepositoryImpl" lazy-init="true" />
+	<bean id="keywordRepository" class="com.amadeus.ori.translate.repository.impl.KeywordRepositoryImpl" lazy-init="true" />	
+	<bean id="translationRepository" class="com.amadeus.ori.translate.repository.impl.TranslationRepositoryImpl" lazy-init="true" />		
+	<bean id="logEntryRepository" class="com.amadeus.ori.translate.repository.impl.LogEntryRepositoryImpl" lazy-init="true" />
+	<bean id="languageRepository" class="com.amadeus.ori.translate.repository.impl.LanguageRepositoryImpl" lazy-init="true" />
+	
+	<bean id="cacheManager" class="com.amadeus.ori.translate.repository.impl.CacheManagerImpl" lazy-init="true"/>	
+	
+	<bean id="identityHolder" class="com.amadeus.ori.translate.security.IdentityHolder" scope="session" lazy-init="true">
+		<aop:scoped-proxy/> 
+	</bean>
+
+	<!-- Controllers -->
+	<bean id="userController" class="com.amadeus.ori.translate.controller.UserController" lazy-init="true">
+		<property name="userRepository" ref="userRepository"/> 
+		<property name="cacheManager" ref="cacheManager"/>	
+		<property name="identityHolder" ref="identityHolder"/>	
+		<property name="logEntryRepository" ref="logEntryRepository"/>
+	</bean>
+
+	<bean id="projectController" class="com.amadeus.ori.translate.controller.ProjectController" lazy-init="true">
+		<property name="projectRepository" ref="projectRepository"/> 
+		<property name="identityHolder" ref="identityHolder"/>	
+	</bean>	
+	
+	<bean id="securityController" class="com.amadeus.ori.translate.controller.SecurityController" lazy-init="true">
+		<property name="userRepository" ref="userRepository"/> 
+		<property name="identityHolder" ref="identityHolder"/>
+		<property name="logEntryRepository" ref="logEntryRepository"/>
+	</bean>
+
+	<bean id="logEntryController" class="com.amadeus.ori.translate.controller.LogEntryController" lazy-init="true">
+		<property name="logEntryRepository" ref="logEntryRepository"/>		
+	</bean>	
+
+	<bean id="exportController" class="com.amadeus.ori.translate.controller.ExportController" lazy-init="true">
+		<property name="projectRepository" ref="projectRepository"/> 
+		<property name="translationRepository" ref="translationRepository"/>
+		<property name="languageRepository" ref="languageRepository"/>		
+	</bean>	
+			
+	<bean id="translationController" class="com.amadeus.ori.translate.controller.TranslationController" lazy-init="true">
+		<property name="cacheManager" ref="cacheManager"/>	
+		<property name="keywordRepository" ref="keywordRepository"/> 	
+		<property name="translationRepository" ref="translationRepository"/>
+	</bean>		
+
+	<bean id="importController" class="com.amadeus.ori.translate.controller.ImportController" lazy-init="true">	
+		<property name="cacheManager" ref="cacheManager"/>	
+		<property name="identityHolder" ref="identityHolder"/>
+		<property name="keywordRepository" ref="keywordRepository"/> 	
+		<property name="translationRepository" ref="translationRepository"/>
+	</bean>			
+		
+	
+  	<!-- Controller URL Mapping-->
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				
+		
+				<prop key="/listProjects">projectController</prop>
+				
+				<!-- security controls all user authentication related actions -->
+				<prop key="/security/authenticate">securityController</prop>
+				<prop key="/security/logout">securityController</prop>
+				<prop key="/security/getIdentity">securityController</prop>
+				<prop key="/security/updateProfile">securityController</prop>
+				<prop key="/security/loginGoogle">securityController</prop>
+				<prop key="/security/logoutGoogle">securityController</prop>
+				
+				<!-- all the functional controls for the translation -->
+				<prop key="/translate/list">translationController</prop>
+				<prop key="/translate/setTranslation">translationController</prop>
+				<prop key="/translate/listBundles">translationController</prop>
+				<prop key="/translate/initialize">translationController</prop>		
+				<prop key="/translate/batchProcess">translationController</prop>	
+				<prop key="/translate/askGoogle">translationController</prop>	
+						
+				<!-- <prop key="/export/file/*">exportController</prop>
+				<prop key="/export/package">exportController</prop>
+				<prop key="/export/iphone">exportController</prop> -->
+				<prop key="/export/*">exportController</prop>				
+				
+				<!-- only ADMIN functions -->
+				<prop key="/admin/createUser">userController</prop>
+				<prop key="/admin/listUsers">userController</prop>
+				<prop key="/admin/updateUser">userController</prop>
+				<prop key="/admin/deleteUser">userController</prop>
+				<prop key="/admin/sendMail">userController</prop>
+				
+				<prop key="/admin/createProject">projectController</prop>
+				<prop key="/admin/getProject">projectController</prop>
+				<prop key="/admin/updateProject">projectController</prop>
+				<prop key="/admin/deleteProject">projectController</prop>
+				
+				<prop key="/admin/listLogEntries">logEntryController</prop>
+				<prop key="/admin/translate/addKeyword">translationController</prop>
+				<prop key="/admin/translate/deleteKeyword">translationController</prop>
+				<prop key="/admin/import/loadFile">importController</prop>
+				<prop key="/admin/import/addTranslation">importController</prop>				
+								
+			</props>
+		</property>
+	</bean>
+</beans>
