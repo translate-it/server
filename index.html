@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Server by translate-it</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/translate-it/server">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/translate-it/server/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/translate-it/server/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Server</h1>
+          <p>Server-side part of the Translate-it Project</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/translate-it">translate-it</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h3>Welcome to Translate-It!</h3>
+
+<p>This is a localization (aka L10n) project, to help you translate your applications and websites.</p>
+
+<p>The process is quite simple:
+1. The developers import their string resource files, with the text in one language.
+2. The translators have access to these resources and can display side by side the original text and its translation.
+3. When the translations are done, it is possible to export them in various file formats (depending on your project needs). This export can be automated to be included in scripts.</p>
+
+<h3>Features</h3>
+
+<ul>
+<li>Support multiple projects</li>
+<li>Users can be administrators or translators.</li>
+<li>Export in iOS property files, Java property files, JSON objects.</li>
+<li>Import from CSV</li>
+<li>Zipped output from a simple URL call to automate the update of the application packages.</li>
+</ul><h3>Architecture</h3>
+
+<p>This project has been design for fast and simple deployment.</p>
+
+<ul>
+<li>The server side is in Java and targets Google App Engine. You have to get a Google account to deploy it, but it can perfectly run on a free account without reaching the limits. It uses several Google features, such as the database and the Google authentication for sign-in.</li>
+<li>The UI part is made in Flex. A compiled version of the SWF file is included in the server.</li>
+</ul><h3>Status</h3>
+
+<p>This project has just been released as open-source, there is a lot of work to do:</p>
+
+<ul>
+<li>Support more import/export format</li>
+<li>Add security to prevent package downloads by an unauthorized person.</li>
+<li>Switch from Flex to HTML5 (?)</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
