@@ -22,6 +22,9 @@ import org.springframework.web.servlet.mvc.Controller;
 import com.amadeus.ori.translate.domain.Keyword;
 import com.amadeus.ori.translate.domain.Translation;
 import com.amadeus.ori.translate.domain.dto.TranslationImportDTO;
+import com.amadeus.ori.translate.exporters.Exporter;
+import com.amadeus.ori.translate.exporters.ExporterFactory;
+import com.amadeus.ori.translate.importers.Importer;
 import com.amadeus.ori.translate.importers.ImporterFactory;
 import com.amadeus.ori.translate.json.AdminResultMessage;
 import com.amadeus.ori.translate.repository.CacheManager;
@@ -112,7 +115,7 @@ public class ImportController implements Controller {
 	private ModelAndView listFormats() {
 		return new ModelAndView("jsonView", "formats", ImporterFactory.listFormats());
 	}
-
+	
 	private ModelAndView addTranslation(String keyValue, String translationValue, String language, String bundle, String projectId) {
 		
 		keyValue = StringUtils.deleteWhitespace(keyValue);
@@ -136,51 +139,39 @@ public class ImportController implements Controller {
 	private ModelAndView importTranslation(String formatId, String delimiter, HttpServletRequest request) throws ControllerException {
 		LOG.debug("loading file ... ");
 
-		  try {
-		      ServletFileUpload upload = new ServletFileUpload();
-		     // res.setContentType("text/plain");
+		// Get the file format importer
+		final Importer importer = ImporterFactory.get(formatId);
 
-		      FileItemIterator iterator = upload.getItemIterator(request);
-		      while (iterator.hasNext()) {
-		        FileItemStream item = iterator.next();
+		if (importer == null) {
+			throw new ControllerException("Unknown import format: " + formatId);
+		}
+		
+		
+		try {
+			ServletFileUpload upload = new ServletFileUpload();
+			FileItemIterator iterator = upload.getItemIterator(request);
+			
+			while (iterator.hasNext()) {
+				FileItemStream item = iterator.next();
 
-		        if (!item.isFormField()) {
+				if (!item.isFormField()) {
 
-		          LOG.debug("Got an uploaded file: " + item.getFieldName() + ", name = " + item.getName()+ ", format = " + formatId);		          
-		          
-		          List<TranslationImportDTO> result = importFromStream(formatId, item.openStream(), delimiter);
+					LOG.debug("Got an uploaded file: " + item.getFieldName()
+							+ ", name = " + item.getName() + ", format = "
+							+ formatId);
 
-		          return new ModelAndView("jsonView", "contents", result);
-		        }
-		      }
-		    } catch (Exception ex) {
-		      throw new ControllerException("File upload failed");
-		    } 		
+					List<TranslationImportDTO> result = importer.importFromStream(item.openStream()); 
+
+					return new ModelAndView("jsonView", "contents", result);
+				}
+			}
+		} catch (Exception ex) {
+			LOG.warn("File upload failed", ex);
+			throw new ControllerException("File upload failed");
+		}
 		
 		return null;
 	}
-
-
-	private List<TranslationImportDTO> importFromStream(String formatId, InputStream is, String delimiter) throws IOException {
-
-		final BufferedReader r = new BufferedReader(new InputStreamReader(is,"UTF-8"));
-		List<TranslationImportDTO> results = new ArrayList<TranslationImportDTO>();
-		
-		String line;	
-		
-		while ((line = r.readLine()) != null) {				
-						
-			line = StringUtils.chomp(line); //remove tailing line breaks
-			TranslationImportDTO item = new TranslationImportDTO(line.split(delimiter));
-			
-			if (item.hasKey()) {
-				results.add(item);
-			}
-		}
-		
-		return results;
-	}
-
 
 	public void setTranslationRepository(TranslationRepository translationRepository) {
 		this.translationRepository = translationRepository;
