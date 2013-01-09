@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.amadeus.ori.translate.domain.dto.TranslationImportDTO;
 
-@ImporterName(name="csv")
+@ImporterName(name="csv", description="Comma-separated values files")
 public class CsvImporter implements Importer {
 
 	@Override

@@ -13,6 +13,7 @@ public class ImporterFactory {
 	private static final Log LOG = LogFactory.getLog(ImporterFactory.class);
 
 	private static Map<String, Class<? extends Importer>> importers = new HashMap<String, Class<? extends Importer>>();
+	private static Map<String, String> importersDescriptions = new HashMap<String, String>();
 	
 	static {
 		registerAllImporters();
@@ -48,8 +49,8 @@ public class ImporterFactory {
 	 * Get the set of names of the importers currently available
 	 * @return a set containing strings of all the names of the importers currently available
 	 */
-	public static Set<String> list() {
-		return importers.keySet();
+	public static Map<String, String> list() {
+		return importersDescriptions;
 	}
 
 	/**
@@ -64,7 +65,9 @@ public class ImporterFactory {
 		for(Class<? extends Importer> importerClass : importerSubTypes) {
 			ImporterName annotation = importerClass.getAnnotation(ImporterName.class);
 			if (!importerClass.isInterface() && annotation != null) {
-				importers.put(annotation.name(), importerClass);
+				String name = annotation.name();
+				importers.put(name, importerClass);
+				importersDescriptions.put(name, annotation.description());
 			}
 		}
 	}

@@ -12,7 +12,7 @@ import com.amadeus.ori.translate.repository.LanguageRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-@ExporterName(name="json")
+@ExporterName(name="json", description="JSON object")
 public class JSONExporter implements Exporter {
 	
 	@Override

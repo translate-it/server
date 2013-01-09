@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import com.amadeus.ori.translate.domain.Translation;
 import com.amadeus.ori.translate.repository.LanguageRepository;
 
-@ExporterName(name="java")
+@ExporterName(name="java", description="Java property files")
 public class JavaExporter implements Exporter {
 
     @Override

@@ -28,6 +28,7 @@ public class ExporterFactory {
 	private static final Log LOG = LogFactory.getLog(ExporterFactory.class);
 
 	private static Map<String, Class<? extends Exporter>> exporters = new HashMap<String, Class<? extends Exporter>>();
+	private static Map<String, String> exportersDescriptions = new HashMap<String, String>();
 	
 	static {
 		registerAllExporters();
@@ -63,8 +64,8 @@ public class ExporterFactory {
 	 * Get the set of names of the exporters currently available
 	 * @return a set containing strings of all the names of the exporters currently available
 	 */
-	public static Set<String> list() {
-		return exporters.keySet();
+	public static Map<String, String> list() {
+		return exportersDescriptions;
 	}
 
 	/**
@@ -79,7 +80,9 @@ public class ExporterFactory {
 		for(Class<? extends Exporter> exporterClass : exporterSubTypes) {
 			ExporterName annotation = exporterClass.getAnnotation(ExporterName.class);
 			if (!exporterClass.isInterface() && annotation != null) {
-				exporters.put(annotation.name(), exporterClass);
+				String name = annotation.name();
+				exporters.put(name, exporterClass);
+				exportersDescriptions.put(name, annotation.description());
 			}
 		}
 	}

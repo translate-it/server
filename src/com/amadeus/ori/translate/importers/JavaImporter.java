@@ -11,7 +11,7 @@ import com.amadeus.ori.translate.domain.dto.TranslationImportDTO;
  * @author bbezine
  *
  */
-@ImporterName(name="java")
+@ImporterName(name="java", description="Java property files")
 public class JavaImporter extends CsvImporter {
 	@Override
 	public List<TranslationImportDTO> importFromStream(InputStream is)

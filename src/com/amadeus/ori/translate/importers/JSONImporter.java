@@ -11,7 +11,7 @@ import com.amadeus.ori.translate.domain.dto.TranslationImportDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@ImporterName(name="json")
+@ImporterName(name="json", description="JSON object")
 public class JSONImporter implements Importer {
 
 	@Override

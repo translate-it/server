@@ -11,7 +11,7 @@ import com.amadeus.ori.translate.domain.Translation;
 import com.amadeus.ori.translate.iphone.IOSLanguageCodeAdapter;
 import com.amadeus.ori.translate.repository.LanguageRepository;
 
-@ExporterName(name="ios")
+@ExporterName(name="ios", description="XCode-compatible translation files")
 public class IOSExporter implements Exporter {
 
 	@Override
