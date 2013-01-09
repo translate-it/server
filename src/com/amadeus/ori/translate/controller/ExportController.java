@@ -64,13 +64,20 @@ public class ExportController implements Controller {
 		// Get the project ID from the URL
 		String projectId = request.getParameter("projectId");
 		
-		if (StringUtils.isEmpty(action) || StringUtils.isEmpty(projectId)) {
+		if (StringUtils.isEmpty(action)) {
+			throw new ControllerException(Messages.ERROR_INVALID_REQUEST);
+		} else if (action.equals("listFormats")){
+			return listFormats();
+		} else if (StringUtils.isEmpty(projectId)) {
 			throw new ControllerException(Messages.ERROR_INVALID_REQUEST);
 		}
 		
 		return exportZipped(response, action, projectId, request.getParameter("bundles"));		
 	}
 
+	private ModelAndView listFormats() {
+		return new ModelAndView("jsonView", "formats", ExporterFactory.list());
+	}
 	
 	private ModelAndView exportZipped(HttpServletResponse res, String exporterName,
 			String projectId, String bundleNames) throws IOException, ControllerException {

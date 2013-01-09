@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.Controller;
 import com.amadeus.ori.translate.domain.Keyword;
 import com.amadeus.ori.translate.domain.Translation;
 import com.amadeus.ori.translate.domain.dto.TranslationImportDTO;
+import com.amadeus.ori.translate.importers.ImporterFactory;
 import com.amadeus.ori.translate.json.AdminResultMessage;
 import com.amadeus.ori.translate.repository.CacheManager;
 import com.amadeus.ori.translate.repository.KeywordRepository;
@@ -97,12 +98,16 @@ public class ImportController implements Controller {
 			
 			return addTranslation(keyValue, translationValue, language, bundleId, projectId);
 			
+		} else if (action.equals("listFormats")){
+			return listFormats();
+		} else {
+			throw new ControllerException(Messages.ERROR_INVALID_REQUEST);
 		}
-
-		throw new ControllerException(Messages.ERROR_INVALID_REQUEST);
-
 	}
 
+	private ModelAndView listFormats() {
+		return new ModelAndView("jsonView", "formats", ImporterFactory.list());
+	}
 
 	private ModelAndView addTranslation(String keyValue, String translationValue, String language, String bundle, String projectId) {
 		

@@ -102,6 +102,7 @@
 				<!-- <prop key="/export/file/*">exportController</prop>
 				<prop key="/export/package">exportController</prop>
 				<prop key="/export/iphone">exportController</prop> -->
+				<prop key="/admin/export/listFormats">exportController</prop>
 				<prop key="/export/*">exportController</prop>				
 				
 				<!-- only ADMIN functions -->
@@ -121,7 +122,8 @@
 				<prop key="/admin/translate/deleteKeyword">translationController</prop>
 				<prop key="/admin/import/loadFile">importController</prop>
 				<prop key="/admin/import/addTranslation">importController</prop>				
-								
+				<prop key="/admin/import/listFormats">importController</prop>
+												
 			</props>
 		</property>
 	</bean>
