@@ -1,12 +1,16 @@
 package com.amadeus.ori.translate.importers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.reflections.Reflections;
+
+import com.amadeus.ori.translate.domain.Format;
 
 public class ImporterFactory {
 	
@@ -49,8 +53,12 @@ public class ImporterFactory {
 	 * Get the set of names of the importers currently available
 	 * @return a set containing strings of all the names of the importers currently available
 	 */
-	public static Map<String, String> list() {
-		return importersDescriptions;
+	public static List<Format> listFormats() {
+		List<Format> result = new ArrayList<Format>();
+		for (String formatId : importersDescriptions.keySet()) {
+			result.add(new Format(formatId, importersDescriptions.get(formatId)));
+		}
+		return result;
 	}
 
 	/**

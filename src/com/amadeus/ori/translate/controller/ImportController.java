@@ -76,13 +76,17 @@ public class ImportController implements Controller {
 
 		if (action.equals("loadFile")) {
 			
+			String formatId = request.getParameter("formatId"); 
 			String delimiter = request.getParameter("delimiter"); 
-			
 			if (StringUtils.isEmpty(delimiter)) {
 				delimiter="=";
 			}
 		
-			return importTranslation(delimiter, request);
+			if (StringUtils.isEmpty(formatId)) {
+				throw new ControllerException(Messages.ERROR_INVALID_REQUEST);
+			}
+			
+			return importTranslation(formatId, delimiter, request);
 			
 		} else if(action.equals("addTranslation")){
 					
@@ -106,7 +110,7 @@ public class ImportController implements Controller {
 	}
 
 	private ModelAndView listFormats() {
-		return new ModelAndView("jsonView", "formats", ImporterFactory.list());
+		return new ModelAndView("jsonView", "formats", ImporterFactory.listFormats());
 	}
 
 	private ModelAndView addTranslation(String keyValue, String translationValue, String language, String bundle, String projectId) {
@@ -129,7 +133,7 @@ public class ImportController implements Controller {
 	}
 
 
-	private ModelAndView importTranslation(String delimiter, HttpServletRequest request) throws ControllerException {
+	private ModelAndView importTranslation(String formatId, String delimiter, HttpServletRequest request) throws ControllerException {
 		LOG.debug("loading file ... ");
 
 		  try {
@@ -142,9 +146,9 @@ public class ImportController implements Controller {
 
 		        if (!item.isFormField()) {
 
-		          LOG.debug("Got an uploaded file: " + item.getFieldName() + ", name = " + item.getName());		          
+		          LOG.debug("Got an uploaded file: " + item.getFieldName() + ", name = " + item.getName()+ ", format = " + formatId);		          
 		          
-		          List<TranslationImportDTO> result = importFromStream(item.openStream(), delimiter);
+		          List<TranslationImportDTO> result = importFromStream(formatId, item.openStream(), delimiter);
 
 		          return new ModelAndView("jsonView", "contents", result);
 		        }
@@ -157,7 +161,7 @@ public class ImportController implements Controller {
 	}
 
 
-	private List<TranslationImportDTO> importFromStream(InputStream is, String delimiter) throws IOException {
+	private List<TranslationImportDTO> importFromStream(String formatId, InputStream is, String delimiter) throws IOException {
 
 		final BufferedReader r = new BufferedReader(new InputStreamReader(is,"UTF-8"));
 		List<TranslationImportDTO> results = new ArrayList<TranslationImportDTO>();
