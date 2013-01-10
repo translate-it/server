@@ -1,10 +1,5 @@
 package com.amadeus.ori.translate.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +17,6 @@ import org.springframework.web.servlet.mvc.Controller;
 import com.amadeus.ori.translate.domain.Keyword;
 import com.amadeus.ori.translate.domain.Translation;
 import com.amadeus.ori.translate.domain.dto.TranslationImportDTO;
-import com.amadeus.ori.translate.exporters.Exporter;
-import com.amadeus.ori.translate.exporters.ExporterFactory;
 import com.amadeus.ori.translate.importers.Importer;
 import com.amadeus.ori.translate.importers.ImporterFactory;
 import com.amadeus.ori.translate.json.AdminResultMessage;

@@ -86,6 +86,10 @@ public class Translation implements Serializable {
 	public String getKeywordId() {
 		return keywordId;
 	}
+	
+	public String getLocalId() {
+		return StringUtils.substringAfterLast(keywordId, ".");
+	}
 
 	public void setKeywordId(String keywordId) {
 		this.keywordId = keywordId;

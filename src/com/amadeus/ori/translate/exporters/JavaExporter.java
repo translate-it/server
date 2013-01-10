@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.amadeus.ori.translate.domain.Translation;
 import com.amadeus.ori.translate.repository.LanguageRepository;
 
@@ -46,7 +44,7 @@ public class JavaExporter implements Exporter {
 						sb.append('\n');
 					}
 
-					sb.append(StringUtils.substringAfterLast(translation.getKeywordId(), "."));
+					sb.append(translation.getLocalId());
 					sb.append('=');
 					sb.append(translation.getValue());
 				}	
