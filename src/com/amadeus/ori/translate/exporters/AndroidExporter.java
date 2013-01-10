@@ -79,7 +79,7 @@ public class AndroidExporter implements Exporter {
 			Translation translation) throws XMLStreamException {
 		
 	     writer.writeStartElement("string");
-	     writer.writeAttribute("name", translation.getLocalId());
+	     writer.writeAttribute("name", translation.getKeywordId());
 	     writer.writeCharacters(translation.getValue());
 	     writer.writeEndElement();
 	}
