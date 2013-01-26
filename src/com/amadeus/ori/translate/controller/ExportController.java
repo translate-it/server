@@ -72,7 +72,7 @@ public class ExportController implements Controller {
 			throw new ControllerException(Messages.ERROR_INVALID_REQUEST);
 		}
 		
-		return exportZipped(response, action, projectId, request.getParameter("bundles"));		
+		return exportZipped(response, action, projectId, request.getParameter("bundle"));		
 	}
 
 	private ModelAndView listFormats() {
