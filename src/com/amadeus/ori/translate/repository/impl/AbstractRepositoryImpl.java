@@ -2,6 +2,7 @@ package com.amadeus.ori.translate.repository.impl;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
+import java.util.List;
 
 import com.amadeus.ori.translate.repository.IRepository;
 import com.amadeus.ori.translate.repository.exception.DAOException;
@@ -47,7 +48,7 @@ public abstract class AbstractRepositoryImpl<T> implements IRepository<T> {
 
 	}
 	
-	public Collection<T> list() throws DAOException {
+	public List<T> list() throws DAOException {
 		
 		return ofy().load().type(persistentClass).list();			 
 	}

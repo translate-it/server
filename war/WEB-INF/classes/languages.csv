@@ -4,8 +4,8 @@ eu,Basque,Euskara
 be,Belarusian,Беларуская
 bg,Bulgarian,Български
 ca,Catalan,Català
-zh-cn,Chinese (Simplified),
-zh-tw,Chinese (Traditional),
+zh-cn,Chinese (Simplified),中文 
+zh-tw,Chinese (Traditional),文言 
 hr,Croatian,Hrvatski
 cs,Czech,Cesky
 da,Danish,Dansk
@@ -47,7 +47,7 @@ el,Greek,Ελληνικά
 haw,Hawaiian,
 hu,Hungarian,Magyar
 is,Icelandic,Íslenska
-in,Indonesian,
+id,Indonesian,Indonesian (Bahasa Indonesia)
 ga,Irish,
 it,Italian,Italiano
 it-it,Italian (Italy),

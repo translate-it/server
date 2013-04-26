@@ -1,6 +1,7 @@
 package com.amadeus.ori.translate.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.amadeus.ori.translate.repository.exception.DAOException;
 
@@ -16,7 +17,7 @@ public interface IRepository<T> {
 	
 	void delete(Object entity) throws DAOException;
 
-	Collection<T> list() throws DAOException;
+	List<T> list() throws DAOException;
 	
 	Collection<T> list(int startIndex, int endIndex);
 

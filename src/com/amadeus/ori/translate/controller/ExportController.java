@@ -109,9 +109,10 @@ public class ExportController implements Controller {
 		}
 
 		String[] languages = str.split(",");
+		String packageName =  project.getName().toLowerCase() + "_" + exporterName.toLowerCase() + "_translations.zip";
 
 		res.setContentType("application/zip");
-		res.setHeader("Content-Disposition", "inline; filename=output.zip;");
+		res.setHeader("Content-Disposition", "inline; filename=" + packageName + ";");
 		res.setCharacterEncoding("UTF-8");
 
 		ZipOutputStream zipOutStream = new ZipOutputStream(res.getOutputStream());

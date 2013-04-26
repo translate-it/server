@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 
+import javanet.staxutils.IndentingXMLStreamWriter;
+
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -42,10 +44,8 @@ public class AndroidExporter implements Exporter {
 
 			XMLOutputFactory factory = XMLOutputFactory.newInstance();
 			try {
-				XMLStreamWriter writer = factory
-						.createXMLStreamWriter(outputStream);
-
-				writer.writeStartDocument();
+				XMLStreamWriter writer = new IndentingXMLStreamWriter(factory.createXMLStreamWriter(outputStream, "UTF-8"));
+				writer.writeStartDocument("UTF-8", "1.0");
 				writeResources(writer, translations, bundleName);
 				writer.writeEndDocument();
 
@@ -79,7 +79,7 @@ public class AndroidExporter implements Exporter {
 			Translation translation) throws XMLStreamException {
 		
 	     writer.writeStartElement("string");
-	     writer.writeAttribute("name", translation.getKeywordId());
+	     writer.writeAttribute("name", translation.getLocalId());
 	     writer.writeCharacters(translation.getValue());
 	     writer.writeEndElement();
 	}
