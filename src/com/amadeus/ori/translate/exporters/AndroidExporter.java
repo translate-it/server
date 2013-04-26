@@ -80,7 +80,7 @@ public class AndroidExporter implements Exporter {
 		
 	     writer.writeStartElement("string");
 	     writer.writeAttribute("name", translation.getLocalId());
-	     writer.writeCharacters(translation.getValue());
+	     writer.writeCharacters(escapeValue(translation.getValue()));
 	     writer.writeEndElement();
 	}
 
@@ -97,6 +97,10 @@ public class AndroidExporter implements Exporter {
 		
 		// No index
 		throw new NotImplementedException();
+	}
+	
+	private String escapeValue(String value){
+		return value.replace("\"", "\\\"").replace("'", "\\'");
 	}
 
 }
