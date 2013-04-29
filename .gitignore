@@ -5,3 +5,4 @@
 *.war
 *.ear
 /war/flex_debug
+/war/WEB-INF/appengine-generated
