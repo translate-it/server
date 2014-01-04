@@ -25,14 +25,17 @@ public class AndroidExporter implements Exporter {
 	@Override
 	public String getFilename(String bundle, String language) {
 
-		String filename = "values";
+		StringBuilder filename = new StringBuilder();
+		filename.append("values");
 		
 		if (language != null && !language.isEmpty()) {
-			filename += "-" + language;
+			filename.append("-");
+			filename.append(language);
 		}		
-
-		filename += "/strings.xml";
-		return filename;
+		filename.append("/");
+		filename.append( bundle.equals("default") ? "strings" : bundle);
+		filename.append(".xml");
+		return filename.toString();
 	}
 
 	@Override

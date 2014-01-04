@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.amadeus.ori.translate.domain.dto.TranslationImportDTO;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,6 +21,7 @@ public class JSONImporter implements Importer {
 
 		// Parse the incoming JSON
 		ObjectMapper mapper = new ObjectMapper();
+					 mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
 		Map<String, String> translationPairs = mapper.readValue(is, new TypeReference<HashMap<String,String>>(){});
 		
 		List<TranslationImportDTO> results = new ArrayList<TranslationImportDTO>();
