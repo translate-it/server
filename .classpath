@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/javassist-3.12.1.GA.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/stax-utils.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
