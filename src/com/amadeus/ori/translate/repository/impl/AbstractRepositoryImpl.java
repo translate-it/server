@@ -29,7 +29,7 @@ public abstract class AbstractRepositoryImpl<T> implements IRepository<T> {
 	public T save(T entity) {
 
 		Key<T> k = ofy().save().entity(entity).now();
-		return ofy().load().key(k).get();
+		return ofy().load().key(k).now();
 	}
 
 	public void saveAll(Collection<T> entities) throws DAOException {
@@ -65,7 +65,7 @@ public abstract class AbstractRepositoryImpl<T> implements IRepository<T> {
 	
 	public T findByKey(String key) {
 
-		return ofy().load().type(persistentClass).id(key).get();
+		return ofy().load().type(persistentClass).id(key).now();
 	}
 	
     public static Objectify ofy() {

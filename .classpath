@@ -16,7 +16,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/datanucleus-cache-1.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-4.0b1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-annotations-2.1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-core-2.1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-databind-2.1.2.jar"/>
@@ -26,6 +25,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/javassist-3.12.1.GA.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/stax-utils.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-5.0.3.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>

@@ -26,8 +26,6 @@
 	<bean id="logEntryRepository" class="com.amadeus.ori.translate.repository.impl.LogEntryRepositoryImpl" lazy-init="true" />
 	<bean id="languageRepository" class="com.amadeus.ori.translate.repository.impl.LanguageRepositoryImpl" lazy-init="true" />
 	
-	<bean id="cacheManager" class="com.amadeus.ori.translate.repository.impl.CacheManagerImpl" lazy-init="true"/>	
-	
 	<bean id="identityHolder" class="com.amadeus.ori.translate.security.IdentityHolder" scope="session" lazy-init="true">
 		<aop:scoped-proxy/> 
 	</bean>
@@ -35,7 +33,6 @@
 	<!-- Controllers -->
 	<bean id="userController" class="com.amadeus.ori.translate.controller.UserController" lazy-init="true">
 		<property name="userRepository" ref="userRepository"/> 
-		<property name="cacheManager" ref="cacheManager"/>	
 		<property name="identityHolder" ref="identityHolder"/>	
 		<property name="logEntryRepository" ref="logEntryRepository"/>
 	</bean>
@@ -62,13 +59,11 @@
 	</bean>	
 			
 	<bean id="translationController" class="com.amadeus.ori.translate.controller.TranslationController" lazy-init="true">
-		<property name="cacheManager" ref="cacheManager"/>	
 		<property name="keywordRepository" ref="keywordRepository"/> 	
 		<property name="translationRepository" ref="translationRepository"/>
 	</bean>		
 
 	<bean id="importController" class="com.amadeus.ori.translate.controller.ImportController" lazy-init="true">	
-		<property name="cacheManager" ref="cacheManager"/>	
 		<property name="identityHolder" ref="identityHolder"/>
 		<property name="keywordRepository" ref="keywordRepository"/> 	
 		<property name="translationRepository" ref="translationRepository"/>

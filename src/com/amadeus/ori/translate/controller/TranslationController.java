@@ -21,7 +21,6 @@ import com.amadeus.ori.translate.domain.Keyword;
 import com.amadeus.ori.translate.domain.Translation;
 import com.amadeus.ori.translate.domain.dto.KeywordTranslationDTO;
 import com.amadeus.ori.translate.json.AdminResultMessage;
-import com.amadeus.ori.translate.repository.CacheManager;
 import com.amadeus.ori.translate.repository.KeywordRepository;
 import com.amadeus.ori.translate.repository.TranslationRepository;
 import com.amadeus.ori.translate.security.IdentityHolder;
@@ -39,8 +38,6 @@ public class TranslationController implements Controller {
 	private KeywordRepository keywordRepository;
 	
 	private TranslationRepository translationRepository;
-
-	private CacheManager cacheManager;
 
 	private IdentityHolder identityHolder;
 
@@ -284,10 +281,6 @@ public class TranslationController implements Controller {
 
 		LOG.debug("list done");	
 		return new ModelAndView("jsonView", "keywordTranslation", results.values());
-	}
-
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
 	}
 
 	public void setIdentityHolder(IdentityHolder identityHolder) {

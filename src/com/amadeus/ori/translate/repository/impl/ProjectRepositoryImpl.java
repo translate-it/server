@@ -12,6 +12,6 @@ public class ProjectRepositoryImpl extends AbstractRepositoryImpl<Project> imple
 
 	public Project findByKey(String key) {
 
-		return ofy().load().type(Project.class).id(Long.parseLong(key)).get();
+		return ofy().load().type(Project.class).id(Long.parseLong(key)).now();
 	}
 }
